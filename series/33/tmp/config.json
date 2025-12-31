@@ -1,0 +1,7 @@
+{
+  "app": "billing-api",
+  "port": 9090,
+  "timeout": "900ms",
+  "log_level": "warn",
+  "feature_x": true
+}

@@ -1,0 +1,16 @@
+{
+  "app": "order-api",
+  "port": 9090,
+  "timeout": "850ms",
+  "retries": 5,
+  "id": 9007199254740993,
+  "features": ["search", "metrics", "circuit"],
+  "limits": {
+    "max_conn": 200,
+    "burst": 50
+  },
+  "metadata": {
+    "owner": "platform",
+    "region": "cn-north-1"
+  }
+}
