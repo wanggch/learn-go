@@ -1,0 +1,3 @@
+./doc.go
+./race_darwin_amd64.go
+./race_v1_amd64.go

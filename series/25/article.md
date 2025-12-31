@@ -51,7 +51,6 @@ GOCACHE=$(pwd)/.cache/go-build go run ./series/25/cmd/patterns -workers=6 -items
 - 更符合真实世界资源上限（CPU、连接池、下游 QPS）。
 - 更容易观测（worker 数、队列长度、处理耗时都能统计）。
 
-你可以把 worker pool 当作工程默认形态：只要存在“很多独立任务”，就优先考虑 worker pool，而不是“每个任务开 goroutine”。
 
 ### 2.2 fan-out：把任务分发到多个 worker
 
@@ -79,11 +78,7 @@ GOCACHE=$(pwd)/.cache/go-build go run ./series/25/cmd/patterns -workers=6 -items
 
 ### 2.5 三条“模式正确性”检查清单
 
-你写完一个 worker pool + fan-in/out，可以用这三个问题做自检：
-
-1. **并发度是否有上限**？（workers 固定/信号量限制）
-2. **退出条件是否完整**？（jobs close + ctx.Done + results close）
-3. **阻塞点是否可控**？（发送 results 不会永远阻塞；必要时加 buffer 或 ctx 分支）
+你写完一个 worker pool + fan-in/out，可以用三件事自检：并发度是否有上限、退出条件是否完整、阻塞点是否可控。能回答清楚这三点，基本就不会写出“跑着跑着挂住”的并发代码。
 
 配图建议：
 - 一张“关闭顺序”时序图：producer close(jobs) → wg.Wait → close(results) → consumer range 结束。
